@@ -13,8 +13,12 @@ export async function generateStaticParams() {
   return all.map((r) => ({ id: String(r.id) }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<Params> }) {
-  const { id } = await params;
+import type { PagePropsParams as RoutePageProps } from "../../types";
+import { normalizeMaybePromise } from "../../types";
+
+export async function generateMetadata(props: RoutePageProps<Params>) {
+  const params = (await normalizeMaybePromise(props?.params)) as Params | undefined;
+  const { id } = params ?? { id: "" };
   const recipe = await getRecipeById(id);
   if (!recipe) return { title: "Recipe not found" };
   return {
@@ -28,8 +32,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   };
 }
 
-export default async function RecipeDetail({ params }: { params: Promise<Params> }) {
-  const { id } = await params;
+export default async function RecipeDetail(props: RoutePageProps<Params>) {
+  const params = (await normalizeMaybePromise(props?.params)) as Params | undefined;
+  const { id } = params ?? { id: "" };
   const recipe = await getRecipeById(id);
   if (!recipe) return notFound();
 

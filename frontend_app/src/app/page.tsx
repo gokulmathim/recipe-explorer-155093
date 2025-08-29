@@ -7,12 +7,14 @@ import { Suspense } from "react";
 
 export const dynamic = "force-static";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams?: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const qParam = (await searchParams)?.["q"];
+import type { PagePropsSP } from "./types";
+import { normalizeMaybePromise } from "./types";
+
+export default async function Home(props: PagePropsSP) {
+  // Support both Promise-based and object-based searchParams to avoid type mismatches.
+  const sp = await normalizeMaybePromise(props?.searchParams);
+
+  const qParam = sp?.["q"];
   const q =
     typeof qParam === "string"
       ? qParam
