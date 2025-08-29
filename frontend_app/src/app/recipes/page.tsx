@@ -5,10 +5,11 @@ import { Suspense } from "react";
 
 export const dynamic = "force-static";
 
-import type { PagePropsSP } from "../types";
 import { normalizeMaybePromise } from "../types";
 
-export default async function RecipesPage(props: PagePropsSP) {
+export default async function RecipesPage(
+  props: { searchParams?: import("../types").SearchParams | Promise<import("../types").SearchParams> }
+) {
   const sp = await normalizeMaybePromise(props?.searchParams);
 
   const qParam = sp?.["q"];

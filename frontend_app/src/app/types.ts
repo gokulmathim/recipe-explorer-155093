@@ -2,21 +2,27 @@ export type SearchParams = Record<string, string | string[] | undefined>;
 export type Params = Record<string, string>;
 
 // PUBLIC_INTERFACE
-export type PagePropsSP =
-  | { searchParams?: SearchParams }
-  | { searchParams?: Promise<SearchParams> };
+/**
+ * Page props shape that is compatible with Next.js App Router in v15:
+ * - searchParams may be the object itself or a Promise (depending on runtime),
+ *   and we intersect with Next's PageProps to satisfy type constraints.
+ */
+export type PagePropsSP = { searchParams?: SearchParams | Promise<SearchParams> };
 
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * Params props shape compatible with Next.js App Router in v15:
+ * - params may be the object itself or a Promise (depending on runtime),
+ *   and we intersect with Next's PageProps to satisfy type constraints.
+ */
 export type PagePropsParams<P extends Params = Params> =
-  | { params: P }
-  | { params: Promise<P> };
+  { params: P | Promise<P> };
 
 /** Type guard to check if a value is a Promise. */
 function isPromise<T>(value: unknown): value is Promise<T> {
   return (
     typeof value === "object" &&
     value !== null &&
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     typeof (value as { then?: unknown }).then === "function"
   );
 }

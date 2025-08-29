@@ -7,10 +7,12 @@ import { Suspense } from "react";
 
 export const dynamic = "force-static";
 
-import type { PagePropsSP } from "./types";
 import { normalizeMaybePromise } from "./types";
 
-export default async function Home(props: PagePropsSP) {
+export default async function Home(
+  // Accept both object and Promise-wrapped searchParams to satisfy Next 15 inference
+  props: { searchParams?: import("./types").SearchParams | Promise<import("./types").SearchParams> }
+) {
   // Support both Promise-based and object-based searchParams to avoid type mismatches.
   const sp = await normalizeMaybePromise(props?.searchParams);
 

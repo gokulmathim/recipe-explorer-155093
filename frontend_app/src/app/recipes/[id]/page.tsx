@@ -13,10 +13,11 @@ export async function generateStaticParams() {
   return all.map((r) => ({ id: String(r.id) }));
 }
 
-import type { PagePropsParams as RoutePageProps } from "../../types";
-import { normalizeMaybePromise } from "../../types";
+import { normalizeMaybePromise } from "@/app/types";
 
-export async function generateMetadata(props: RoutePageProps<Params>) {
+export async function generateMetadata(
+  props: { params: Params | Promise<Params> }
+) {
   const params = (await normalizeMaybePromise(props?.params)) as Params | undefined;
   const { id } = params ?? { id: "" };
   const recipe = await getRecipeById(id);
@@ -32,7 +33,9 @@ export async function generateMetadata(props: RoutePageProps<Params>) {
   };
 }
 
-export default async function RecipeDetail(props: RoutePageProps<Params>) {
+export default async function RecipeDetail(
+  props: { params: Params | Promise<Params> }
+) {
   const params = (await normalizeMaybePromise(props?.params)) as Params | undefined;
   const { id } = params ?? { id: "" };
   const recipe = await getRecipeById(id);
