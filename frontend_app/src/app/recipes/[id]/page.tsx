@@ -2,6 +2,8 @@ import { getRecipeById, getAllRecipes } from "@/lib/recipes";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from "react";
+import { SearchBar } from "@/components/SearchBar";
 
 type Params = { id: string };
 
@@ -35,6 +37,13 @@ export default async function RecipeDetail({ params }: { params: Promise<Params>
     <div className="container py-8 md:py-12">
       <div className="mb-6">
         <Link href="/recipes" className="link-muted hover:text-fg">&larr; Back to recipes</Link>
+      </div>
+
+      {/* Ensure client components using useSearchParams are within Suspense */}
+      <div className="mb-6">
+        <Suspense fallback={<div className="h-11 rounded-xl border border-muted bg-white animate-pulse" />}>
+          <SearchBar placeholder="Search recipes..." />
+        </Suspense>
       </div>
 
       <article className="grid md:grid-cols-5 gap-6 md:gap-10">

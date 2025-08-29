@@ -23,6 +23,8 @@ npm run dev
 
 Open http://localhost:3000
 
+> Dev note: If port 3000 is already in use, Next.js will start on the next available port (e.g., 3001) and log the URL in the terminal. If your preview tool is pinned to port 3000, update it to the port shown by Next.js (e.g., http://localhost:3001).
+
 ## Structure
 - `src/app/` Next.js App Router pages
   - `/` Home with search and featured feed

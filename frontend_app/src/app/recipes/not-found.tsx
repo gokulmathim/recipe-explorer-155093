@@ -1,3 +1,7 @@
+import Link from "next/link";
+import { Suspense } from "react";
+import { SearchBar } from "@/components/SearchBar";
+
 export default function NotFound() {
   return (
     <div className="container py-12">
@@ -5,7 +9,14 @@ export default function NotFound() {
       <p className="text-muted-fg mt-2">
         We couldn&apos;t find the recipe you were looking for. It may have been removed or the link is incorrect.
       </p>
-      <a href="/recipes" className="btn btn-primary mt-6 inline-block">Back to recipes</a>
+
+      <div className="mt-6 max-w-lg">
+        <Suspense fallback={<div className="h-11 rounded-xl border border-muted bg-white animate-pulse" />}>
+          <SearchBar placeholder="Try searching for another recipe..." />
+        </Suspense>
+      </div>
+
+      <Link href="/recipes" className="btn btn-primary mt-6 inline-block">Back to recipes</Link>
     </div>
   );
 }

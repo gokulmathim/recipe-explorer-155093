@@ -1,3 +1,6 @@
+import { Suspense } from "react";
+import { SearchBar } from "@/components/SearchBar";
+
 export default function AboutPage() {
   return (
     <div className="container py-10">
@@ -7,6 +10,12 @@ export default function AboutPage() {
         recipes. This demo uses static data and showcases search, catalog
         browsing, and detailed recipe pages with a responsive layout.
       </p>
+
+      <div className="mt-6 max-w-lg">
+        <Suspense fallback={<div className="h-11 rounded-xl border border-muted bg-white animate-pulse" />}>
+          <SearchBar placeholder="Search recipes..." />
+        </Suspense>
+      </div>
     </div>
   );
 }
