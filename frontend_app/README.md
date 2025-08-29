@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recipe Explorer Frontend
+
+A modern, minimalistic light-themed Next.js app for browsing and discovering recipes.
+
+## Features
+- Recipe catalog browsing with responsive grid
+- Search by title, category, and ingredients
+- Recipe detail view with ingredients and steps
+- Responsive navigation and layout
+- Homepage with featured recipes and hero section
+- Clean UI with provided color palette:
+  - primary: `#00A86B`
+  - secondary: `#FFD700`
+  - accent: `#FF6347`
 
 ## Getting Started
-
-First, run the development server:
+Install dependencies and run dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
+- `src/app/` Next.js App Router pages
+  - `/` Home with search and featured feed
+  - `/recipes` Catalog with search
+  - `/recipes/[id]` Recipe detail
+  - `/about` Static about page
+- `src/components/` Reusable UI (SearchBar, RecipeCard, RecipeGrid)
+- `src/lib/recipes.ts` Lightweight data-access functions
+- `src/data/recipes.json` Mock dataset
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Notes
+- This demo uses static data and static export friendly routes.
+- Styling uses Tailwind v4 base with custom CSS tokens for the theme.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
